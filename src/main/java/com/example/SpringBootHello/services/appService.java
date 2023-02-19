@@ -6,6 +6,7 @@
 package com.example.SpringBootHello.services;
 
 import com.example.SpringBootHello.repositories.AlumnoRepository;
+import com.example.SpringBootHello.repositories.CursoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +19,10 @@ public class appService {
     
     @Autowired
     AlumnoRepository repo;
-    
+    @Autowired
+    CursoRepository cursos;
+ 
+    public Integer cantidadAlumnos(String curso){
+        return cursos.findByNombre(curso).get().getAlumnos().size();
+    }
 }

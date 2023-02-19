@@ -7,6 +7,7 @@ package com.example.SpringBootHello.controllers;
 
 import com.example.SpringBootHello.repositories.AlumnoRepository;
 import com.example.SpringBootHello.repositories.CursoRepository;
+import com.example.SpringBootHello.services.appService;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
@@ -36,6 +37,9 @@ public class AlumnoRestController {
     
     @Autowired
     CursoRepository repoCurso;
+    
+    @Autowired
+    appService servicio;
 
     @GetMapping()
     public List<Alumno> list() {
@@ -78,6 +82,11 @@ public class AlumnoRestController {
         System.out.println( c );
        
         return new ResponseEntity<Curso>(c,HttpStatus.OK);
+    }
+    
+   @GetMapping("/curso/{curso}/total")
+    public ResponseEntity<Integer> totalCurso(@PathVariable String curso) {   
+        return new ResponseEntity<>( servicio.cantidadAlumnos(curso) ,HttpStatus.OK);
     }
     
     @PostMapping("/curso/{curso}")
